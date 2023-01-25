@@ -1,23 +1,20 @@
-package com.dejan.popovski.petshop.repository.model;
+package com.dejan.popovski.petshop.rest.dto;
 
-import jakarta.persistence.*;
+import com.dejan.popovski.petshop.repository.model.Pet;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Table
-@Entity
+
+@AllArgsConstructor
 @Getter
 @Setter
-public class User {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class UserResponseDto {
     private String firstName;
     private String lastName;
     private String email;
     private int budget;
-    @ManyToOne
     private List<Pet> pets;
 }

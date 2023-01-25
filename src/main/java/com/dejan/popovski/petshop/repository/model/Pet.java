@@ -1,26 +1,26 @@
 package com.dejan.popovski.petshop.repository.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
-public interface Pet {
+@Getter
+@Setter
+@MappedSuperclass
+public abstract class Pet {
+    @Id
+    @GeneratedValue
+    private long id;
+    @OneToMany
+    private User owner;
+    private String name;
+    private String description;
+    private Date dateOfBirth;
+    private int price;
 
-    User getOwner();
-
-    void setOwner(User owner);
-
-    String getName();
-
-    void setName(String name);
-
-    String getDescription();
-
-    void setDescription(String description);
-
-    Date getDateOfBirth();
-
-    void setDateOfBirth(Date dateOfBirth);
-
-    int getPrice();
-
-    void setPrice(int price);
 }
