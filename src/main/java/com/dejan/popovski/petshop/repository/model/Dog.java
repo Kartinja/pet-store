@@ -2,27 +2,31 @@ package com.dejan.popovski.petshop.repository.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Entity
 @Table
+@NoArgsConstructor
+@Getter
+@Setter
 public class Dog extends Pet {
+    @Min(1)
+    @Max(10)
     private int rating;
 
-    public Dog(String name, String description, Date dateOfBirth, int price, int rating) {
-        setName(name);
-        setDescription(description);
-        setDateOfBirth(dateOfBirth);
-        setPrice(price);
-        setRating(rating);
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
+    public Dog(String name, String description, Date dateOfBirth, int rating) {
+        super(name, description, dateOfBirth);
         this.rating = rating;
+    }
+
+    @Override
+    protected int calculatePrice(Date dateOfBirth) {
+        return super.calculatePrice(dateOfBirth) + rating;
     }
 }

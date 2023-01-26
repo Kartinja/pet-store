@@ -1,17 +1,14 @@
 package com.dejan.popovski.petshop.repository.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
-@Table
+@NoArgsConstructor
 public class Cat extends Pet {
-    public Cat(String name, String description, Date dateOfBirth, int price) {
-        setName(name);
-        setDescription(description);
-        setDateOfBirth(dateOfBirth);
-        setPrice(price);
+    public Cat(String name, String description, Date dateOfBirth) {
+        super(name, description, dateOfBirth);
     }
 }

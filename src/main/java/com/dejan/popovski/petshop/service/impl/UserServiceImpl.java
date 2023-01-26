@@ -16,7 +16,7 @@ import java.util.Random;
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    UserJpaRepository userJpaRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Override
     public User create(UserRequestDto userRequestDto) {
@@ -37,9 +37,11 @@ public class UserServiceImpl implements UserService {
             String firstName = RandomStringUtils.randomAlphabetic(3, 10);
             String lastName = RandomStringUtils.randomAlphabetic(3, 15);
             String email = RandomStringUtils.randomAlphabetic(3, 20) + "@" + RandomStringUtils.randomAlphabetic(3, 7) + ".com";
-            int budget = random.nextInt(10) + 1;
+            int budget = random.nextInt(7,30);
+
             User user = new User(firstName,lastName,email,budget);
-            users.add(create(userRequestDto));
+            userJpaRepository.save(user);
+            users.add(user);
         }
         return users;
     }
