@@ -1,20 +1,26 @@
 package com.dejan.popovski.petshop.service.impl;
 
+import com.dejan.popovski.petshop.repository.HistoryLogJpaRepository;
+import com.dejan.popovski.petshop.repository.PetJpaRepository;
 import com.dejan.popovski.petshop.repository.UserJpaRepository;
-import com.dejan.popovski.petshop.repository.model.User;
+import com.dejan.popovski.petshop.repository.model.*;
 import com.dejan.popovski.petshop.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.time.Instant;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     private UserJpaRepository userJpaRepository;
+    private PetJpaRepository petJpaRepository;
+    private HistoryLogJpaRepository historyLogJpaRepository;
 
     @Override
     public List<User> createUsers() {
@@ -25,22 +31,61 @@ public class UserServiceImpl implements UserService {
             String firstName = RandomStringUtils.randomAlphabetic(3, 10);
             String lastName = RandomStringUtils.randomAlphabetic(3, 15);
             String email = RandomStringUtils.randomAlphabetic(3, 20) + "@" + RandomStringUtils.randomAlphabetic(3, 7) + ".com";
-            int budget = random.nextInt(7,30);
+            int budget = random.nextInt(7, 30);
 
-            User user = new User(firstName,lastName,email,budget);
+            User user = new User(firstName, lastName, email, budget);
             userJpaRepository.save(user);
             users.add(user);
         }
         return users;
     }
+
     @Override
     public List<User> getAll() {
         return userJpaRepository.findAll();
     }
 
     @Override
-    public User buy() {
-        List<User> users = getAll();
-        return null;
+    public List<User> buy() {
+        List<User> users = userJpaRepository.findAllByOrderByBudgetDesc();
+        List<Pet> petsWithoutOwners = petJpaRepository.findAllByOwnerIsNullOrderByPriceDesc();
+        int numberOfPetsBought = 0;
+
+        //im trying to buy a pet for every user
+        for (User user : users) {
+            for (Pet pet : petsWithoutOwners) {
+                if (user.getBudget() >= pet.getPrice()) {
+                    List<Pet> ownedPets = new ArrayList<>();
+                    if (user.getPets() != null) {
+                        ownedPets = user.getPets();
+                    }
+                    ownedPets.add(pet);
+                    user.setPets(ownedPets);
+                    user.setBudget(user.getBudget() - pet.getPrice());
+                    userJpaRepository.save(user);
+
+                    pet.setOwner(user);
+                    petJpaRepository.save(pet);
+
+                    if (pet instanceof Cat) {
+                        log.info("Meow, cat {} has owner {}", pet.getName(), user.getFirstName());
+                    } else if (pet instanceof Dog) {
+                        log.info("Woof, dog {} has owner {}", pet.getName(), user.getFirstName());
+                    }
+                    numberOfPetsBought++;
+                    petsWithoutOwners.remove(pet);
+                    // go to next user, i am giving all users a chance to buy a pet
+                    break;
+                }
+            }
+        }
+        Date today = Date.from(Instant.now());
+        int numberOfUsersThatDidntBuyPet = users.size() - numberOfPetsBought;
+        HistoryLog historyLog = new HistoryLog(today, numberOfPetsBought, numberOfUsersThatDidntBuyPet);
+        historyLogJpaRepository.save(historyLog);
+
+        return users;
     }
+
+
 }

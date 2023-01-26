@@ -23,12 +23,11 @@ public class UserController {
 
     @PostMapping("")
     public List<UserResponseDto> createUsers() {
-        List<User> users = userService.createUsers();
-        List<UserResponseDto> userResponseDtos = new LinkedList<>();
-        for (User user : users) {
-            userResponseDtos.add(userConverter.from(user));
-        }
-        return userResponseDtos;
+        return userService.createUsers().stream().map(userConverter::from).collect(Collectors.toList());
+    }
+    @PostMapping("/buy")
+    public List<UserResponseDto> buy(){
+        return userService.buy().stream().map(userConverter::from).collect(Collectors.toList());
     }
 
     @GetMapping("")

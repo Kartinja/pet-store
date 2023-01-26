@@ -1,5 +1,6 @@
 package com.dejan.popovski.petshop.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -24,6 +24,7 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
+    @JsonBackReference
     private User owner;
     @NotBlank
     private String name;
@@ -31,7 +32,7 @@ public class Pet {
     private String description;
     @NotNull
     private Date dateOfBirth;
-    @Min(1)
+    @Min(0)
     private int price;
 
     public Pet(String name, String description, Date dateOfBirth) {

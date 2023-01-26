@@ -1,5 +1,6 @@
 package com.dejan.popovski.petshop.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,7 @@ public class User {
     private String email;
     private int budget;
     @OneToMany(mappedBy = "owner")
+    @JsonManagedReference
     private List<Pet> pets;
 
     public User(String firstName, String lastName, String email, int budget) {

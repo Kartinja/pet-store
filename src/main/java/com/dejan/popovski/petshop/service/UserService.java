@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface UserService {
     List<User> createUsers();
     List<User> getAll();
-    User buy();
+    List<User> buy();
 }

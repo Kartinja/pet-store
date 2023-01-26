@@ -40,12 +40,11 @@ public class PetServiceImpl implements PetService {
         List<Pet> pets = new LinkedList<>();
 
         for (int i = 0; i < numberPets; i++) {
-            int flag = random.nextInt(0, 2);
             String name = RandomStringUtils.randomAlphabetic(3, 10);
             String description = RandomStringUtils.randomAlphabetic(3, 50);
             Date dateOfBirth = dateUtil.randomDate();
-
-            if (flag == 0) {
+            // i decide randomly on the creation of the pet to get diversity
+            if (random.nextBoolean()) {
                 int rating = random.nextInt(1, 11);
                 Dog pet = new Dog(name, description, dateOfBirth, rating);
                 pet = dogJpaRepository.save(pet);

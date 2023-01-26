@@ -11,7 +11,6 @@ import java.util.Random;
 public class DateUtil {
     private final Random random = new Random();
     public Date randomDate(){
-
         int daysToSubstruct = random.nextInt(365*10);
         Instant randomDay = Instant.now().minus(daysToSubstruct, ChronoUnit.DAYS);
         return Date.from(randomDay);

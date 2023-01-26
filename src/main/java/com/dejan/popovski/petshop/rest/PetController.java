@@ -23,12 +23,7 @@ public class PetController {
 
     @PostMapping("")
     public List<PetResponseDto> createPets() {
-        List<Pet> pets = petService.createPets();
-        List<PetResponseDto> petResponseDtos = new LinkedList<>();
-        for (Pet pet : pets) {
-            petResponseDtos.add(petConverter.from(pet));
-        }
-        return petResponseDtos;
+        return petService.createPets().stream().map(petConverter::from).collect(Collectors.toList());
     }
 
     @GetMapping("")
