@@ -30,6 +30,7 @@ public class PetServiceImpl implements PetService {
     /**
      * This method creates and returns pets with random properties.
      * Elements returned are stored in db.
+     *
      * @return pets
      */
     @Override
@@ -49,9 +50,8 @@ public class PetServiceImpl implements PetService {
                 Dog pet = new Dog(name, description, dateOfBirth, rating);
                 pet = dogJpaRepository.save(pet);
                 pets.add(pet);
-
-            }else{
-                Cat pet = new Cat(name,description,dateOfBirth);
+            } else {
+                Cat pet = new Cat(name, description, dateOfBirth);
                 pet = catJpaRepository.save(pet);
                 pets.add(pet);
             }
@@ -61,6 +61,6 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getAll() {
-        return null;
+        return petJpaRepository.findAll();
     }
 }

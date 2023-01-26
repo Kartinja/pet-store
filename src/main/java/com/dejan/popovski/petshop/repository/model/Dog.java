@@ -23,6 +23,7 @@ public class Dog extends Pet {
     public Dog(String name, String description, Date dateOfBirth, int rating) {
         super(name, description, dateOfBirth);
         this.rating = rating;
+        this.setPrice(calculatePrice(dateOfBirth));
     }
 
     @Override

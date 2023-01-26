@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Getter
@@ -42,7 +43,7 @@ public class Pet {
 
     protected int calculatePrice(Date dateOfBirth) {
         LocalDate today = LocalDate.now();
-        LocalDate birth = LocalDate.of(dateOfBirth.getYear(), dateOfBirth.getMonth(), dateOfBirth.getDate());
+        LocalDate birth = dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Period period = Period.between(birth, today);
         return period.getYears();
     }
