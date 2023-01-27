@@ -3,7 +3,6 @@ package com.dejan.popovski.petshop.repository.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -22,11 +21,11 @@ public class HistoryLog {
     @NotNull
     private int numberOfSuccessBuys;
     @NotNull
-    private int numberOfUnSuccessBuys;
+    private int numberOfUsersThatDidntBuyPet;
 
     public HistoryLog(Date dateOfExecution, int numberOfSuccessBuys, int numberOfUnSuccessBuys) {
         this.dateOfExecution = dateOfExecution;
         this.numberOfSuccessBuys = numberOfSuccessBuys;
-        this.numberOfUnSuccessBuys = numberOfUnSuccessBuys;
+        this.numberOfUsersThatDidntBuyPet = numberOfUnSuccessBuys;
     }
 }

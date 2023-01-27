@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class HistoryLogConverter {
     public HistoryLogResponseDto from(HistoryLog historyLog) {
-        return new HistoryLogResponseDto(historyLog.getId(), historyLog.getDateOfExecution(), historyLog.getNumberOfSuccessBuys(), historyLog.getNumberOfUnSuccessBuys());
+        return new HistoryLogResponseDto(historyLog.getId(), historyLog.getDateOfExecution(), historyLog.getNumberOfSuccessBuys(), historyLog.getNumberOfUsersThatDidntBuyPet());
     }
 }

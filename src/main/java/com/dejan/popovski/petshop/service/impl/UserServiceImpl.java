@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
     public List<User> buy() {
         List<User> users = userJpaRepository.findAllByOrderByBudgetDesc();
         List<Pet> petsWithoutOwners = petJpaRepository.findAllByOwnerIsNullOrderByPriceDesc();
+        List<User> userBuyers = new LinkedList<>();
         int numberOfPetsBought = 0;
 
         //im trying to buy a pet for every user
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService {
                     }
                     numberOfPetsBought++;
                     petsWithoutOwners.remove(pet);
+                    userBuyers.add(user);
                     // go to next user, i am giving all users a chance to buy a pet
                     break;
                 }
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
         HistoryLog historyLog = new HistoryLog(today, numberOfPetsBought, numberOfUsersThatDidntBuyPet);
         historyLogJpaRepository.save(historyLog);
 
-        return users;
+        return userBuyers;
     }
 
 

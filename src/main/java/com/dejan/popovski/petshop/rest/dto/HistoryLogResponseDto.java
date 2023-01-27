@@ -17,5 +17,5 @@ public class HistoryLogResponseDto {
     @NotNull
     private int numberOfSuccessBuys;
     @NotNull
-    private int numberOfUnSuccessBuys;
+    private int numberOfUsersThatDidntBuyPet;
 }
