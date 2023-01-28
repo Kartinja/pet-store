@@ -1,4 +1,4 @@
-"# Pet-store
+# Pet-store
 The needed infrastructural dependencies to run the application:
 -   Java 17
 -   Maven 3.6 +
