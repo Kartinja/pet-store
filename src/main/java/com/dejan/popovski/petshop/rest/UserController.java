@@ -5,10 +5,7 @@ import com.dejan.popovski.petshop.rest.converters.UserConverter;
 import com.dejan.popovski.petshop.rest.dto.UserResponseDto;
 import com.dejan.popovski.petshop.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;

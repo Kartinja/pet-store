@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.util.Date;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
@@ -21,11 +20,11 @@ public class HistoryLog {
     @NotNull
     private int numberOfSuccessBuys;
     @NotNull
-    private int numberOfUsersThatDidntBuyPet;
+    private int numberOfUnSuccessfulBuys;
 
-    public HistoryLog(Date dateOfExecution, int numberOfSuccessBuys, int numberOfUnSuccessBuys) {
+    public HistoryLog(Date dateOfExecution, int numberOfSuccessBuys, int numberOfUnSuccessfulBuys) {
         this.dateOfExecution = dateOfExecution;
         this.numberOfSuccessBuys = numberOfSuccessBuys;
-        this.numberOfUsersThatDidntBuyPet = numberOfUnSuccessBuys;
+        this.numberOfUnSuccessfulBuys = numberOfUnSuccessfulBuys;
     }
 }

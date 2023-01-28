@@ -5,7 +5,6 @@ import com.dejan.popovski.petshop.repository.PetJpaRepository;
 import com.dejan.popovski.petshop.repository.UserJpaRepository;
 import com.dejan.popovski.petshop.repository.model.*;
 import com.dejan.popovski.petshop.service.UserService;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,6 +21,12 @@ public class UserServiceImpl implements UserService {
     private PetJpaRepository petJpaRepository;
     private HistoryLogJpaRepository historyLogJpaRepository;
 
+    /**
+     * This method creates users with random properties.
+     * Elements created are stored in db.
+     *
+     * @return users
+     */
     @Override
     public List<User> createUsers() {
         Random random = new Random();
@@ -45,6 +50,11 @@ public class UserServiceImpl implements UserService {
         return userJpaRepository.findAll();
     }
 
+    /**
+     * This method tries to buy a pet for every owner.
+     *
+     * @return users
+     */
     @Override
     public List<User> buy() {
         List<User> users = userJpaRepository.findAllByOrderByBudgetDesc();
@@ -76,7 +86,7 @@ public class UserServiceImpl implements UserService {
                     numberOfPetsBought++;
                     petsWithoutOwners.remove(pet);
                     userBuyers.add(user);
-                    // go to next user, i am giving all users a chance to buy a pet
+                    // go to next user, I am giving all users a chance to buy a pet
                     break;
                 }
             }
