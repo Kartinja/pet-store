@@ -27,6 +27,7 @@ public class PetServiceImpl implements PetService {
 
     /**
      * This method creates and returns pets with random properties.
+     * I made an assumption based on the CLI requirement that the create pet method should generate the number of pets randomly.
      * Elements returned are stored in db.
      *
      * @return pets

@@ -22,7 +22,8 @@ public class UserServiceImpl implements UserService {
     private HistoryLogJpaRepository historyLogJpaRepository;
 
     /**
-     * This method creates users with random properties.
+     * This method creates up to 10 users with random properties.
+     * I made an assumption based on the CLI requirement that the create user method should generate the number of users randomly.
      * Elements created are stored in db.
      *
      * @return users
