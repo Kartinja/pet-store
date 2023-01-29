@@ -50,5 +50,6 @@ class PetServiceImplTest {
         List<Pet> pets = petService.createPets();
         // then
         assertTrue(pets.size() > 0);
+        assertTrue(pets.size() <= 20);
     }
 }

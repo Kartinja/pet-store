@@ -31,12 +31,15 @@ class PetConverterTest {
         //given
         Date date = Date.from(LocalDate.of(2010, 4, 5).atStartOfDay(ZoneId.systemDefault()).toInstant());
         Pet pet = new Pet("name", "description", date);
+        pet.setId(1L);
         //when
         PetResponseDto petResponseDto = petConverter.from(pet);
         //then
         assertNotNull(petResponseDto);
+        assertEquals(1L, petResponseDto.getId());
         assertEquals("name", petResponseDto.getName());
         assertEquals("description", petResponseDto.getDescription());
+        assertEquals(12,petResponseDto.getPrice());
         assertEquals(date, petResponseDto.getDateOfBirth());
     }
 
@@ -45,6 +48,7 @@ class PetConverterTest {
         //given
         Date date = Date.from(LocalDate.of(2020, 4, 5).atStartOfDay(ZoneId.systemDefault()).toInstant());
         Pet pet = new Pet("name", "description", date);
+        pet.setId(1L);
         ArrayList<Pet> pets = new ArrayList<>();
         pets.add(pet);
         User owner = new User("first", "last", "email", 10);
@@ -56,6 +60,8 @@ class PetConverterTest {
         PetResponseDto petResponseDto = petConverter.from(pet);
         //then
         assertNotNull(petResponseDto);
+        assertEquals(1L,petResponseDto.getId());
+        assertEquals(2,petResponseDto.getPrice());
         assertEquals("name", petResponseDto.getName());
         assertEquals("description", petResponseDto.getDescription());
         assertEquals(date, petResponseDto.getDateOfBirth());

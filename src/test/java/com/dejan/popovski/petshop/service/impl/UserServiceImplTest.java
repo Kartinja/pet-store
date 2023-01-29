@@ -100,12 +100,11 @@ class UserServiceImplTest {
     void testCreateUsers() {
         //given
         when(userJpaRepository.save(any())).thenReturn(new User("User1", "last1", "email1", 10));
-        when(userJpaRepository.save(any())).thenReturn(new User("User2", "last2", "email2", 10));
-        when(userJpaRepository.save(any())).thenReturn(new User("User3", "last3", "email3", 10));
         //when
         List<User> users = userService.createUsers();
         //then
         Assertions.assertTrue(users.size() > 0);
+        Assertions.assertTrue(users.size() <= 10);
     }
 
 }

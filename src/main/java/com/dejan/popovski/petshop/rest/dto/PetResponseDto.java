@@ -1,6 +1,5 @@
 package com.dejan.popovski.petshop.rest.dto;
 
-import com.dejan.popovski.petshop.repository.model.User;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,16 +22,20 @@ public class PetResponseDto {
     private String description;
     @NotNull
     private Date dateOfBirth;
+    @NotBlank
+    private String type;
+    private UserResponseDto owner;
 
-    public PetResponseDto(long id, String name, String description, Date dateOfBirth, int price) {
+    public PetResponseDto(long id, String name, String description, Date dateOfBirth, int price, String type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateOfBirth = dateOfBirth;
         this.price = price;
+        this.type = type;
+        this.owner = new UserResponseDto();
     }
 
-    private UserResponseDto owner;
     @Min(0)
     private int price;
 }
